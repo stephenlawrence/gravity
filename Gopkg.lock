@@ -1454,6 +1454,7 @@
     "nacl/secretbox",
     "openpgp",
     "openpgp/armor",
+    "openpgp/clearsign",
     "openpgp/elgamal",
     "openpgp/errors",
     "openpgp/packet",
@@ -1875,21 +1876,29 @@
   packages = [
     "pkg/chartutil",
     "pkg/engine",
+    "pkg/getter",
     "pkg/helm",
+    "pkg/helm/environment",
+    "pkg/helm/helmpath",
     "pkg/helm/portforwarder",
     "pkg/ignore",
     "pkg/kube",
     "pkg/manifest",
+    "pkg/plugin",
     "pkg/proto/hapi/chart",
     "pkg/proto/hapi/release",
     "pkg/proto/hapi/services",
     "pkg/proto/hapi/version",
+    "pkg/provenance",
     "pkg/releaseutil",
     "pkg/renderutil",
+    "pkg/repo",
     "pkg/storage/errors",
     "pkg/strvals",
     "pkg/sympath",
     "pkg/timeconv",
+    "pkg/tlsutil",
+    "pkg/urlutil",
     "pkg/version"
   ]
   revision = "d325d2a9c179b33af1a024cdb5a4472b6288016a"
@@ -2070,6 +2079,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8da4b89e3e3dc2faaa1e47a8abecd7d0b53adbfc8e0c90cd52623ac300459f5d"
+  inputs-digest = "9ff4f9b7b4f21b5f86248d46aa3106d504aac68e3decd248dd394a4583151ba5"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -33,6 +33,7 @@ import (
 	"github.com/gravitational/gravity/lib/archive"
 	"github.com/gravitational/gravity/lib/constants"
 	"github.com/gravitational/gravity/lib/defaults"
+	"github.com/gravitational/gravity/lib/helm"
 	"github.com/gravitational/gravity/lib/loc"
 	"github.com/gravitational/gravity/lib/pack"
 	"github.com/gravitational/gravity/lib/schema"
@@ -82,6 +83,7 @@ type Config struct {
 	Client *kubernetes.Clientset
 	// FieldLogger specifies the optional logger
 	log.FieldLogger
+	ChartRepository helm.Repository
 }
 
 // New creates a new instance of the application manager
