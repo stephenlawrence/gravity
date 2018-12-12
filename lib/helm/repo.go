@@ -38,9 +38,9 @@ import (
 
 // Repository defines a Helm repository interface.
 type Repository interface {
-	FetchChart(chartFilename string) (io.ReadCloser, error)
+	FetchChart(chartName, chartVersion string) (io.ReadCloser, error)
 	GetIndexFile() (io.ReadCloser, error)
-	PutChart(io.Reader) error
+	PutChart(chartName, chartVersion string, data io.Reader) error
 	DeleteChart(chartName, chartVersion string) error
 }
 
@@ -59,12 +59,12 @@ func NewRepository(config Config) (*clusterRepository, error) {
 	}, nil
 }
 
-func (r *clusterRepository) FetchChart(chartFilename string) (io.ReadCloser, error) {
-	name, version, err := parseChartFilename(chartFilename)
-	if err != nil {
-		return nil, trace.Wrap(err)
-	}
-	locator, err := loc.NewLocator("charts", name, version)
+func (r *clusterRepository) FetchChart(chartName, chartVersion string) (io.ReadCloser, error) {
+	// name, version, err := parseChartFilename(chartFilename)
+	// if err != nil {
+	// 	return nil, trace.Wrap(err)
+	// }
+	locator, err := loc.NewLocator("charts", chartName, chartVersion)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}

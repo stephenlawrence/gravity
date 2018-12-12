@@ -25,7 +25,6 @@ import (
 	"time"
 
 	"github.com/gravitational/gravity/lib/constants"
-	"github.com/gravitational/gravity/lib/helm"
 	"github.com/gravitational/gravity/lib/loc"
 	"github.com/gravitational/gravity/lib/pack"
 	"github.com/gravitational/gravity/lib/schema"
@@ -110,8 +109,6 @@ type Applications interface {
 
 	// StreamAppHookLogs streams app hook logs to output writer, this is a blocking call
 	StreamAppHookLogs(ctx context.Context, ref HookRef, out io.Writer) error
-
-	helm.Repository
 }
 
 // ListAppsRequest is a request to show applications in a repository

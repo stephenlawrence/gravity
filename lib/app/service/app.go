@@ -83,7 +83,7 @@ type Config struct {
 	Client *kubernetes.Clientset
 	// FieldLogger specifies the optional logger
 	log.FieldLogger
-	ChartRepository helm.Repository
+	ChartRepo helm.Repository
 }
 
 // New creates a new instance of the application manager
@@ -571,6 +571,7 @@ func (r *applications) createApp(locator loc.Locator, packageBytes io.Reader, ma
 	appType, err := applicationType(manifest)
 	if err != nil {
 		return nil, trace.Wrap(err)
+
 	}
 
 	options := []pack.PackageOption{

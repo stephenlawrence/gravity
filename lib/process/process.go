@@ -44,6 +44,7 @@ import (
 	cloudaws "github.com/gravitational/gravity/lib/cloudprovider/aws"
 	"github.com/gravitational/gravity/lib/constants"
 	"github.com/gravitational/gravity/lib/defaults"
+	"github.com/gravitational/gravity/lib/helm"
 	"github.com/gravitational/gravity/lib/httplib"
 	"github.com/gravitational/gravity/lib/loc"
 	"github.com/gravitational/gravity/lib/modules"
@@ -1057,12 +1058,20 @@ func (p *Process) initService(ctx context.Context) (err error) {
 		p.Debug("Not running inside Kubernetes.")
 	}
 
+	chartRepo, err := helm.NewRepository(helm.Config{
+		Packages: p.packages,
+	})
+	if err != nil {
+		return trace.Wrap(err)
+	}
+
 	applications, err := appservice.New(appservice.Config{
 		StateDir:       filepath.Join(p.cfg.DataDir, defaults.ImportDir),
 		Backend:        p.backend,
 		Packages:       p.packages,
 		Devmode:        p.cfg.Devmode,
 		Users:          p.identity,
+		ChartRepo:      chartRepo,
 		CacheResources: true,
 		UnpackedDir:    filepath.Join(p.cfg.DataDir, defaults.PackagesDir, defaults.UnpackedDir),
 		GetClient:      tryGetPrivilegedKubeClient,
@@ -1076,6 +1085,7 @@ func (p *Process) initService(ctx context.Context) (err error) {
 		Users:         p.identity,
 		Applications:  applications,
 		Packages:      p.packages,
+		ChartRepo:     chartRepo,
 		Authenticator: p.handlers.WebProxy.GetHandler().AuthenticateRequest,
 		Devmode:       p.cfg.Devmode,
 	})
