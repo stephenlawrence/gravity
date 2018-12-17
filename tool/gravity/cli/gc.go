@@ -18,7 +18,6 @@ package cli
 
 import (
 	"context"
-	"time"
 
 	"github.com/gravitational/gravity/lib/app/docker"
 	"github.com/gravitational/gravity/lib/constants"
@@ -205,7 +204,7 @@ func newCollector(env *localenv.LocalEnvironment) (*vacuum.Collector, error) {
 	return collector, nil
 }
 
-func garbageCollectPhase(env *localenv.LocalEnvironment, phase string, phaseTimeout time.Duration, force bool) error {
+func garbageCollectPhase(env *localenv.LocalEnvironment, params PhaseParams) error {
 	clusterPackages, err := env.ClusterPackages()
 	if err != nil {
 		return trace.Wrap(err)
@@ -268,7 +267,7 @@ func garbageCollectPhase(env *localenv.LocalEnvironment, phase string, phaseTime
 		return trace.Wrap(err)
 	}
 
-	err = collector.RunPhase(context.TODO(), phase, phaseTimeout, force)
+	err = collector.RunPhase(context.TODO(), params.PhaseID, params.Timeout, params.Force)
 	return trace.Wrap(err)
 }
 
